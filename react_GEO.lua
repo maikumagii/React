@@ -1,5 +1,9 @@
 return {
     ["Kin"]={
+        ["Target"]={
+            ["complete_reaction"]="",
+            ["ready_reaction"]="input /p Target / Eleventh Dimension - Inflicts a 3:00 duration Terror | 75%, 50%, 25%, 10%"
+        },
         ["Deathly Diminuendo"]={
             ["complete_reaction"]="react facetarget", 
             ["ready_reaction"]="turnaround"
@@ -181,12 +185,7 @@ return {
             ["ready_reaction"]="input /p Zero Hour - AoE magic-based throat stab, hate reset, and inflicts 60 second Inhibit TP | 75%, 50%, 25%, 10%"
         }
     },
-	["Kin"]={
-        ["Target"]={
-            ["complete_reaction"]="", 
-            ["ready_reaction"]="input /p Target / Eleventh Dimension - Inflicts a 3:00 duration Terror | 75%, 50%, 25%, 10%"
-        }
-    },
+
 	["Ou"]={
         ["Ebullient Nullification"]={
             ["complete_reaction"]="", 
@@ -372,44 +371,44 @@ return {
 ["Aita"]={
         ["Eroding Flesh"]={
             ["ready_reaction"]="input /p Used Eroding Flesh respond with [WIND]",
-            ["complete_reaction"]="wait 2;input /ma huton: ni <t>"
+            ["complete_reaction"]="wait 2;input /ma \"Huton: Ni\" <t>"
         }, 
         ["Flaming Kick"]={
             ["ready_reaction"]="input /p Used Flaming Kick respond with [WATER]",
-            ["complete_reaction"]="wait 2;input /ma suiton: ni <t>"
+            ["complete_reaction"]="wait 2;input /ma \"Suiton: Ni\" <t>"
         },
         ["Flashflood"]={
             ["ready_reaction"]="input /p Used Flashflood respond with [THUNDER]",
-            ["complete_reaction"]="wait 2;input /ma raiton: ni <t>"
+            ["complete_reaction"]="wait 2;input /ma \"Raiton: Ni\" <t>"
         },
         ["Fulminous Smash"]={
             ["ready_reaction"]="input /p Used Fulminous Smash respond with [EARTH]",
-            ["complete_reaction"]="wait 2;input /ma doton: ni <t>"
+            ["complete_reaction"]="wait 2;input /ma \"Doton: Ni\" <t>"
         },
         ["Icy Grasp"]={
             ["ready_reaction"]="input /p Used Icy Grasp respond with [FIRE]",
-            ["complete_reaction"]="wait 2;input /ma katon: ni <t>"
+            ["complete_reaction"]="wait 2;input /ma \"Katon: Ni\" <t>"
         }
     },
     ["Degei"]={
         ["Eroding Flesh"]={
             ["ready_reaction"]="input /p Used Eroding Flesh respond with [WIND]",
-            ["complete_reaction"]="wait 2;input /ma huton: ni <t>"
+            ["complete_reaction"]="wait 2;input /ma \"Huton: Ni\" <t>"
         }, 
         ["Flaming Kick"]={
             ["ready_reaction"]="input /p Used Flaming Kick respond with [WATER]",
-            ["complete_reaction"]="wait 2;input /ma suiton: ni <t>"
+            ["complete_reaction"]="wait 2;input /ma \"Suiton: Ni\" <t>"
         },
         ["Flashflood"]={
             ["ready_reaction"]="input /p Used Flashflood respond with [THUNDER]",
-            ["complete_reaction"]="wait 2;input /ma raiton: ni <t>"
+            ["complete_reaction"]="wait 2;input /ma \"Raiton: Ni\" <t>"
         },
         ["Fulminous Smash"]={
             ["ready_reaction"]="input /p Used Fulminous Smash respond with [EARTH]",
-            ["complete_reaction"]="wait 2;input /ma doton: ni <t>"
+            ["complete_reaction"]="wait 2;input /ma \"Doton: Ni\" <t>"
         },
         ["Icy Grasp"]={
             ["ready_reaction"]="input /p Used Icy Grasp respond with [FIRE]",
-            ["complete_reaction"]="wait 2;input /ma katon: ni <t>"
+            ["complete_reaction"]="wait 2;input /ma \"Katon: Ni\" <t>"
 }},
 }

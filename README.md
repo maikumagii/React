@@ -62,3 +62,12 @@ Run a Script:
 Runaway from a bad WS:
 //react add "Glassy Craver" "View Sync" ready "runaway 25"
 //react add "Glassy Craver" "View Sync" complete "runto 21"
+
+
+Spell names containing spaces must be quoted. In a Lua profile, escape the quotes:
+```lua
+["complete_reaction"] = "wait 2;input /ma \"Katon: Ni\" <t>"
+```
+The Aita and Degei presets retain ninja spells, including in the RDM profile.
+These presets assume you can cast the configured spell; React does not check
+spell availability, tools, recasts, or range before sending the command.

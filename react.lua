@@ -164,10 +164,12 @@ windower.register_event('action',function (act)
 		local param = act.param
 		local recast = act.recast  
 		local targets = act.targets
+		if not self or not targets or not targets[1] then return end
+		if (category == 7 or category == 8) and (not targets[1].actions or not targets[1].actions[1]) then return end
 		local primarytarget = windower.ffxi.get_mob_by_id(targets[1].id)
 		local valid_target = act.valid_target
 		-- React to incidents where you're the primary target or any action by an NPC
-		if actor and (actor.is_npc or primarytarget.name == self.name) and actor.name ~= self.name then 
+		if actor and (actor.is_npc or (primarytarget and primarytarget.name == self.name)) and actor.name ~= self.name then 
 			if debugmode == 1 then
 				if category == 7 then 
 					if res.monster_abilities[targets[1].actions[1].param] then 
@@ -218,7 +220,7 @@ end)
 windower.register_event('prerender', function()
     if autorun == 1 and autorun_target and autorun_distance and autorun_tofrom then 
 		local t = windower.ffxi.get_mob_by_index(autorun_target.index)
-		if t.valid_target and (t.status == 1 or t.status == 0) then 
+		if t and t.valid_target and (t.status == 1 or t.status == 0) then 
 			if autorun_tofrom == 2 then -- run away from
 				if t.distance:sqrt() > autorun_distance then	
 					windower.ffxi.run(false)
@@ -248,6 +250,7 @@ end)
 
 
 function reaction(actor,category,ability,primarytarget)
+	if not ability then return end
 	if custom_reactions[actor.name] then 
 		if custom_reactions[actor.name][ability.en] then
 			if category == 7 or category == 8 then 

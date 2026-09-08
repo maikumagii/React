@@ -1,5 +1,9 @@
 return { 
  ["Kin"]={
+        ["Target"]={
+            ["complete_reaction"]="",
+            ["ready_reaction"]="input /echo Target / Eleventh Dimension - Inflicts a 3:00 duration Terror | 75%, 50%, 25%, 10%"
+        },
         ["Deathly Diminuendo"]={
             ["complete_reaction"]="react facetarget",  
             ["ready_reaction"]="turnaround"
@@ -197,12 +201,7 @@ return {
             ["ready_reaction"]="input /echo Zero Hour - AoE magic-based throat stab, hate reset, and inflicts 60 second Inhibit TP | 75%, 50%, 25%, 10%"
         }
     },
-	["Kin"]={
-        ["Target"]={
-            ["complete_reaction"]="", 
-            ["ready_reaction"]="input /echo Target / Eleventh Dimension - Inflicts a 3:00 duration Terror | 75%, 50%, 25%, 10%"
-        }
-    },
+
 	["Ou"]={
         ["Ebullient Nullification"]={
             ["complete_reaction"]="", 
