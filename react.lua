@@ -34,7 +34,7 @@ _addon.version = '1.5.0.4'
 _addon.command = 'react'
 
 -- 1.3.0 changing map.lua to job specific
--- 1.4.0 Allow react to react to PCs only if target = self 
+-- 1.4.0 Allow react to react to PCs only if target = self
 -- 1.4.0.2/3 Fix for no primary target or skill in resources
 -- 1.4.0.4 Add in a default "complete" command of "gs c update".
 -- 1.4.0.5 Fix 1.4.0.4... urghzzz
@@ -66,7 +66,7 @@ chatcolor = 8
 autorun = 0
 
 
-if windower.ffxi.get_player() then 
+if windower.ffxi.get_player() then
  self = windower.ffxi.get_player()
 
  custom_reactions_file = files.new('react_'..self.main_job..'.lua')
@@ -102,7 +102,7 @@ function addaction(args)
 			elseif monster_reactiontype:lower() == "complete" then
 				custom_reactions[monster][monster_action] = {complete_reaction=monster_reaction, ready_reaction=current_ready_reaction}
 			end
-		else 
+		else
 			custom_reactions[monster][monster_action] = {}
 			if monster_reactiontype:lower() == "ready" then
 				custom_reactions[monster][monster_action] = {ready_reaction=monster_reaction, complete_reaction=""}
@@ -110,7 +110,7 @@ function addaction(args)
 				custom_reactions[monster][monster_action] = {complete_reaction=monster_reaction, ready_reaction=""}
 			end
 		end
-	else 
+	else
 		custom_reactions[monster] = {}
 		if custom_reactions[monster][monster_action] then
 			current_ready_reaction = custom_reactions[monster][monster_action].ready_reaction or nil
@@ -120,7 +120,7 @@ function addaction(args)
 			elseif monster_reactiontype:lower() == "complete" then
 				custom_reactions[monster][monster_action] = {complete_reaction=monster_reaction, ready_reaction=current_ready_reaction}
 			end
-		else 
+		else
 			custom_reactions[monster][monster_action] = {}
 			if monster_reactiontype:lower() == "ready" then
 				custom_reactions[monster][monster_action] = {ready_reaction=monster_reaction, complete_reaction=""}
@@ -157,30 +157,30 @@ end
 
 windower.register_event('action',function (act)
 	-- info here: http://dev.windower.net/doku.php?id=lua:api:events:action
-		local actor = windower.ffxi.get_mob_by_id(act.actor_id)		
+		local actor = windower.ffxi.get_mob_by_id(act.actor_id)
 		local self = windower.ffxi.get_player()
-		local target_count = act.target_count 
-		local category = act.category  
+		local target_count = act.target_count
+		local category = act.category
 		local param = act.param
-		local recast = act.recast  
+		local recast = act.recast
 		local targets = act.targets
 		if not self or not targets or not targets[1] then return end
 		if (category == 7 or category == 8) and (not targets[1].actions or not targets[1].actions[1]) then return end
 		local primarytarget = windower.ffxi.get_mob_by_id(targets[1].id)
 		local valid_target = act.valid_target
 		-- React to incidents where you're the primary target or any action by an NPC
-		if actor and (actor.is_npc or (primarytarget and primarytarget.name == self.name)) and actor.name ~= self.name then 
+		if actor and (actor.is_npc or (primarytarget and primarytarget.name == self.name)) and actor.name ~= self.name then
 			if debugmode == 1 then
-				if category == 7 then 
-					if res.monster_abilities[targets[1].actions[1].param] then 
+				if category == 7 then
+					if res.monster_abilities[targets[1].actions[1].param] then
 						print('Ready Move:',actor.name,res.monster_abilities[targets[1].actions[1].param].en)
 					end
-				elseif category == 8 then 
+				elseif category == 8 then
 					if res.spells[targets[1].actions[1].param] then
 						print('Begins Casting',actor.name,res.spells[targets[1].actions[1].param].en,res.skills[res.spells[targets[1].actions[1].param].skill].en)
 					end
 				elseif category == 11 then
-					if res.monster_abilities[param] then 
+					if res.monster_abilities[param] then
 						print('Completed Ready Move:',actor.name,res.monster_abilities[param].en)
 					end
 				elseif category == 4 then
@@ -191,7 +191,7 @@ windower.register_event('action',function (act)
 			end
 			if category == 7 then -- Begin JA http://dev.windower.net/doku.php?id=lua:api:events:category_07
 				if targets[1].actions[1].param ~= 0 then
-					if res.monster_abilities[targets[1].actions[1].param] then 
+					if res.monster_abilities[targets[1].actions[1].param] then
 						ability = res.monster_abilities[targets[1].actions[1].param] -- .en
 						reaction(actor,category,ability,primarytarget)
 					end
@@ -213,16 +213,16 @@ windower.register_event('action',function (act)
 				end
 			end
 		end
-		
+
 end)
 
 
 windower.register_event('prerender', function()
-    if autorun == 1 and autorun_target and autorun_distance and autorun_tofrom then 
+    if autorun == 1 and autorun_target and autorun_distance and autorun_tofrom then
 		local t = windower.ffxi.get_mob_by_index(autorun_target.index)
-		if t and t.valid_target and (t.status == 1 or t.status == 0) then 
+		if t and t.valid_target and (t.status == 1 or t.status == 0) then
 			if autorun_tofrom == 2 then -- run away from
-				if t.distance:sqrt() > autorun_distance then	
+				if t.distance:sqrt() > autorun_distance then
 					windower.ffxi.run(false)
 					autorun = 0
 				else
@@ -231,10 +231,10 @@ windower.register_event('prerender', function()
 					windower.ffxi.run((angle+180):radian())
 				end
 			elseif autorun_tofrom == 1 then -- run towards
-				if t.distance:sqrt() < autorun_distance then	
+				if t.distance:sqrt() < autorun_distance then
 					windower.ffxi.run(false)
 					autorun = 0
-				else 
+				else
 					local self_vector = windower.ffxi.get_mob_by_index(windower.ffxi.get_player().index or 0)
 					local angle = (math.atan2((t.y - self_vector.y), (t.x - self_vector.x))*180/math.pi)*-1
 					windower.ffxi.run((angle):radian())
@@ -244,82 +244,82 @@ windower.register_event('prerender', function()
 			windower.add_to_chat(chatcolor,"React: Target no longer valid. Stop running")
 			windower.ffxi.run(false)
 			autorun = 0
-		end 
+		end
 	end
 end)
 
 
 function reaction(actor,category,ability,primarytarget)
 	if not ability then return end
-	if custom_reactions[actor.name] then 
+	if custom_reactions[actor.name] then
 		if custom_reactions[actor.name][ability.en] then
-			if category == 7 or category == 8 then 
+			if category == 7 or category == 8 then
 				if custom_reactions[actor.name][ability.en].ready_reaction then
-					if custom_reactions[actor.name][ability.en].ready_reaction:lower() == 'turnaround' then 
+					if custom_reactions[actor.name][ability.en].ready_reaction:lower() == 'turnaround' then
 						turnaround(actor)
-						if showcmds == 1 then 
+						if showcmds == 1 then
 							windower.add_to_chat(chatcolor,"----- React Action: Turning Around")
 						end
-					elseif custom_reactions[actor.name][ability.en].ready_reaction:lower() == 'facemob' then 
+					elseif custom_reactions[actor.name][ability.en].ready_reaction:lower() == 'facemob' then
 						facemob(actor)
-						if showcmds == 1 then 
+						if showcmds == 1 then
 							windower.add_to_chat(chatcolor,"----- React Action: Facing Mob")
 						end
-					elseif string.find(custom_reactions[actor.name][ability.en].ready_reaction:lower(), 'runaway') then 
+					elseif string.find(custom_reactions[actor.name][ability.en].ready_reaction:lower(), 'runaway') then
 						local actionstring = custom_reactions[actor.name][ability.en].ready_reaction:lower()
 						local run_distance = string.match(actionstring,"%d+")
 						runaway(actor,math.floor(run_distance))
-						if showcmds == 1 then 
+						if showcmds == 1 then
 							windower.add_to_chat(chatcolor,"----- React Action: Runaway "..run_distance.." yalms.")
 						end
-					elseif string.find(custom_reactions[actor.name][ability.en].ready_reaction:lower(), 'runto') then 
+					elseif string.find(custom_reactions[actor.name][ability.en].ready_reaction:lower(), 'runto') then
 						local actionstring = custom_reactions[actor.name][ability.en].ready_reaction:lower()
 						local run_distance = string.match(actionstring,"%d+")
 						runto(actor,math.floor(run_distance))
-						if showcmds == 1 then 
+						if showcmds == 1 then
 							windower.add_to_chat(chatcolor,"----- React Action: Runto "..run_distance.." yalms.")
 						end
 					else
 						windower.send_command(custom_reactions[actor.name][ability.en].ready_reaction)
-						if showcmds == 1 then 
+						if showcmds == 1 then
 							windower.add_to_chat(chatcolor,"----- React Action:"..custom_reactions[actor.name][ability.en].ready_reaction)
 						end
 					end
 				end
 			else
 				if custom_reactions[actor.name][ability.en].complete_reaction then
-					if custom_reactions[actor.name][ability.en].complete_reaction:lower() == 'turnaround' then 
+					if custom_reactions[actor.name][ability.en].complete_reaction:lower() == 'turnaround' then
 						turnaround(actor)
-						if showcmds == 1 then 
+						if showcmds == 1 then
 							windower.add_to_chat(chatcolor,"----- React Action: Turning Around")
 						end
-					elseif custom_reactions[actor.name][ability.en].complete_reaction:lower() == 'facemob' then 
+					elseif custom_reactions[actor.name][ability.en].complete_reaction:lower() == 'facemob' then
 						facemob(actor)
-						if showcmds == 1 then 
+						if showcmds == 1 then
 							windower.add_to_chat(chatcolor,"----- React Action: Facing")
 						end
-					elseif string.find(custom_reactions[actor.name][ability.en].complete_reaction:lower(), 'runaway') then 
+					elseif string.find(custom_reactions[actor.name][ability.en].complete_reaction:lower(), 'runaway') then
 						local actionstring = custom_reactions[actor.name][ability.en].complete_reaction:lower()
 						local run_distance = string.match(actionstring,"%d+")
 						runaway(actor,math.floor(run_distance))
-						if showcmds == 1 then 
+						if showcmds == 1 then
 							windower.add_to_chat(chatcolor,"----- React Action: Runaway "..run_distance.." yalms.")
 						end
-					elseif string.find(custom_reactions[actor.name][ability.en].complete_reaction:lower(), 'runto') then 
+					elseif string.find(custom_reactions[actor.name][ability.en].complete_reaction:lower(), 'runto') then
 						local actionstring = custom_reactions[actor.name][ability.en].complete_reaction:lower()
 						local run_distance = string.match(actionstring,"%d+")
 						runto(actor,math.floor(run_distance))
-						if showcmds == 1 then 
+						if showcmds == 1 then
 							windower.add_to_chat(chatcolor,"----- React Action: Runto "..run_distance.." yalms.")
 						end
 					elseif custom_reactions[actor.name][ability.en].complete_reaction == '' then
 						windower.send_command("gs c update")
-						if showcmds == 1 then 
+						if showcmds == 1 then
 							windower.add_to_chat(chatcolor,"----- React Action: Running Default gs c update")
 						end
 					else
 						windower.send_command(custom_reactions[actor.name][ability.en].complete_reaction)
-						if showcmds == 1 then 
+						if showcmds == 1 then
 							windower.add_to_chat(chatcolor,"----- React Action:"..custom_reactions[actor.name][ability.en].complete_reaction)
 						end
 					end
@@ -338,7 +338,7 @@ function reaction(actor,category,ability,primarytarget)
 					if category == 7 or category == 8 then
 						if custom_reactions[self.name][ability.en].ready_reaction then
 							windower.send_command(custom_reactions[self.name][ability.en].ready_reaction)
-							if showcmds == 1 then 
+							if showcmds == 1 then
 								windower.add_to_chat(chatcolor,"----- React Action:"..custom_reactions[self.name][ability.en].ready_reaction)
 							end
 						end
@@ -346,12 +346,12 @@ function reaction(actor,category,ability,primarytarget)
 						if custom_reactions[self.name][ability.en].complete_reaction then
 							if custom_reactions[self.name][ability.en].complete_reaction == '' then
 								windower.send_command("gs c update")
-								if showcmds == 1 then 
+								if showcmds == 1 then
 									windower.add_to_chat(chatcolor,"----- React Action: Running Default gs c update")
 								end
 							else
 								windower.send_command(custom_reactions[self.name][ability.en].complete_reaction)
-								if showcmds == 1 then 
+								if showcmds == 1 then
 									windower.add_to_chat(chatcolor,"----- React Action:"..custom_reactions[self.name][ability.en].complete_reaction)
 								end
 							end
@@ -363,7 +363,7 @@ function reaction(actor,category,ability,primarytarget)
 	end
 end
 
-windower.register_event('load', function()	
+windower.register_event('load', function()
 	debugmode = 0
 	showcmds = 1
 end)
@@ -377,7 +377,7 @@ windower.register_event('addon command', function(command, ...)
 		if debugmode == 0 then
 			debugmode = 1
 			windower.add_to_chat(chatcolor,"React: DEBUG MODE ON")
-		else 
+		else
 			debugmode = 0
 			windower.add_to_chat(chatcolor,"React: DEBUG MODE OFF")
 		end
@@ -386,7 +386,7 @@ windower.register_event('addon command', function(command, ...)
 		if showcmds == 0 then
 			showcmds = 1
 			windower.add_to_chat(chatcolor,"React: SHOW COMMANDS ON")
-		else 
+		else
 			showcmds = 0
 			windower.add_to_chat(chatcolor,"React: SHOW COMMANDS OFF")
 		end
@@ -407,7 +407,7 @@ windower.register_event('addon command', function(command, ...)
 		windower.add_to_chat(2,'	Use Quotes to distinguish arugments with multiple words.  Ex: "Greater Manticore"')
 		windower.add_to_chat(2,'React Commands:')
 		windower.add_to_chat(2,'list:  Lists abilities per monster.  ARGS[1]"Monster"')
-		windower.add_to_chat(2,'add:  Adds a reaction to an ability.  ARGS[1]"Monster" ARGS[2]"Action" ARGS[3]Type\{Ready or Complete\} ARGS[4]"Reaction"')
+		windower.add_to_chat(2,'add:  Adds a reaction to an ability.  ARGS[1]"Monster" ARGS[2]"Action" ARGS[3]Type{Ready or Complete} ARGS[4]"Reaction"')
 		windower.add_to_chat(2,'.....example: //react add "Greater Manticore" "Tail Swing" Ready "input /echo he used tail swing!!!"')
 		windower.add_to_chat(2,'remove:  Removes action/reaction from a Monster.  ARGS[1]"Monster" ARGS[2]"Action"')
 		windower.add_to_chat(2,'debugmode: Print to console all moves capable of reacting')
@@ -417,71 +417,71 @@ windower.register_event('addon command', function(command, ...)
 	if command:lower() == 'turnaround' then
 		turnaround()
 	end
-    
+
     if command:lower() == 'facemob' then
         facemob()
     end
-	
+
     if command:lower() == 'facetarget' then
         facetarget()
     end
-	
-	if command:lower() == 'runaway' then 
+
+	if command:lower() == 'runaway' then
 		local rundistance = args[1] or 35 -- Setting Default run distance to 35
-		runaway(nil,math.floor(rundistance))		
+		runaway(nil,math.floor(rundistance))
 	end
-	
-	if command:lower() == 'runto'  then 
+
+	if command:lower() == 'runto'  then
 		local rundistance = args[1] or 2 -- default will run up to 2 yalms infront of
 		runto(nil,math.floor(rundistance))
 	end
-	
-	if command:lower() == 'stoprun' then 
+
+	if command:lower() == 'stoprun' then
 		windower.ffxi.run(false)
 		autorun = 0
 	end
-	
 
-	
+
+
 
 end)
 
 
-function turnaround(actor) 
+function turnaround(actor)
 	local target = {}
-	if actor then 
+	if actor then
 		target = actor
-	else 
+	else
 		target = windower.ffxi.get_mob_by_index(windower.ffxi.get_player().target_index or 0)
 	end
 	local self_vector = windower.ffxi.get_mob_by_index(windower.ffxi.get_player().index or 0)
 	if target then  -- Pleaes note if you target yourself you will face due West
 		local angle = (math.atan2((target.y - self_vector.y), (target.x - self_vector.x))*180/math.pi)*-1
 		windower.ffxi.turn((angle+180):radian())
-	else 
+	else
 		windower.add_to_chat(10,"React: You're not targeting anything to turn around from")
 	end
 end
 
-function runaway(actor,action_distance) 
-	if windower.ffxi.get_player().target_locked then 
+function runaway(actor,action_distance)
+	if windower.ffxi.get_player().target_locked then
 		windower.send_command("input /lockon")
 	end
 	local target = {}
-	if actor then 
+	if actor then
 		target = actor
-	else 
+	else
 		target = windower.ffxi.get_mob_by_index(windower.ffxi.get_player().target_index or 0)
 	end
 	local self_vector = windower.ffxi.get_mob_by_index(windower.ffxi.get_player().index or 0)
-	if target and target.name ~= self_vector.name then 
+	if target and target.name ~= self_vector.name then
 		local angle = (math.atan2((target.y - self_vector.y), (target.x - self_vector.x))*180/math.pi)*-1
 		windower.ffxi.run((angle+180):radian())
 		autorun = 1
 		autorun_target = target
 		autorun_distance = action_distance
 		autorun_tofrom = 2
-	else 
+	else
 		windower.add_to_chat(10,"React: You're not targeting anything to run away from")
 	end
 end
@@ -501,7 +501,7 @@ function facemob(actor)
 	local target = {}
 	if actor then
 		target = actor
-	else 
+	else
 		target = windower.ffxi.get_mob_by_index(windower.ffxi.get_player().target_index or 0)
 	end
 	local self_vector = windower.ffxi.get_mob_by_index(windower.ffxi.get_player().index or 0)
@@ -517,7 +517,7 @@ function runto(actor,action_distance)
 	local target = {}
 	if actor then
 		target = actor
-	else 
+	else
 		target = windower.ffxi.get_mob_by_index(windower.ffxi.get_player().target_index or 0)
 	end
 	local self_vector = windower.ffxi.get_mob_by_index(windower.ffxi.get_player().index or 0)
@@ -527,7 +527,7 @@ function runto(actor,action_distance)
 		autorun = 1
 		autorun_target = target
 		autorun_distance = action_distance
-		autorun_tofrom = 1	
+		autorun_tofrom = 1
 	else
 		windower.add_to_chat(10,"React: You're not targeting anything to run to")
 	end
@@ -536,9 +536,9 @@ end
 
 
 windower.register_event('job change', function()
-	windower.send_command('lua r react')    
+	windower.send_command('lua r react')
 end)
 
 windower.register_event('login', function()
-	windower.send_command('lua r react')    
+	windower.send_command('lua r react')
 end)
