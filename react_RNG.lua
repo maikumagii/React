@@ -371,44 +371,44 @@ return {
 ["Aita"]={
         ["Eroding Flesh"]={
             ["ready_reaction"]="input /p Used Eroding Flesh respond with [WIND]",
-            ["complete_reaction"]="wait 2;input /ma \"Huton: Ni\" <t>"
+            ["complete_reaction"]=""
         }, 
         ["Flaming Kick"]={
             ["ready_reaction"]="input /p Used Flaming Kick respond with [WATER]",
-            ["complete_reaction"]="wait 2;input /ma \"Suiton: Ni\" <t>"
+            ["complete_reaction"]=""
         },
         ["Flashflood"]={
             ["ready_reaction"]="input /p Used Flashflood respond with [THUNDER]",
-            ["complete_reaction"]="wait 2;input /ma \"Raiton: Ni\" <t>"
+            ["complete_reaction"]=""
         },
         ["Fulminous Smash"]={
             ["ready_reaction"]="input /p Used Fulminous Smash respond with [EARTH]",
-            ["complete_reaction"]="wait 2;input /ma \"Doton: Ni\" <t>"
+            ["complete_reaction"]=""
         },
         ["Icy Grasp"]={
             ["ready_reaction"]="input /p Used Icy Grasp respond with [FIRE]",
-            ["complete_reaction"]="wait 2;input /ma \"Katon: Ni\" <t>"
+            ["complete_reaction"]=""
         }
     },
     ["Degei"]={
         ["Eroding Flesh"]={
             ["ready_reaction"]="input /p Used Eroding Flesh respond with [WIND]",
-            ["complete_reaction"]="wait 2;input /ma \"Huton: Ni\" <t>"
+            ["complete_reaction"]=""
         }, 
         ["Flaming Kick"]={
             ["ready_reaction"]="input /p Used Flaming Kick respond with [WATER]",
-            ["complete_reaction"]="wait 2;input /ma \"Suiton: Ni\" <t>"
+            ["complete_reaction"]=""
         },
         ["Flashflood"]={
             ["ready_reaction"]="input /p Used Flashflood respond with [THUNDER]",
-            ["complete_reaction"]="wait 2;input /ma \"Raiton: Ni\" <t>"
+            ["complete_reaction"]=""
         },
         ["Fulminous Smash"]={
             ["ready_reaction"]="input /p Used Fulminous Smash respond with [EARTH]",
-            ["complete_reaction"]="wait 2;input /ma \"Doton: Ni\" <t>"
+            ["complete_reaction"]=""
         },
         ["Icy Grasp"]={
             ["ready_reaction"]="input /p Used Icy Grasp respond with [FIRE]",
-            ["complete_reaction"]="wait 2;input /ma \"Katon: Ni\" <t>"
+            ["complete_reaction"]=""
 }},
 }
